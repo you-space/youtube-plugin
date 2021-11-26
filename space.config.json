@@ -1,0 +1,25 @@
+{
+    "name": "Youtube plugin",
+    "description": "Plugin to import youtube videos of a channel",
+    "providers": {
+        "youtube-videos": {
+            "name": "Youtube videos provider",
+            "description": "Provider to import youtube videos of a channel",
+            "files": {
+                "import": "./providers/videos/import.js"
+            },
+            "fields": [
+                {
+                    "name": "apiKey",
+                    "type": "string",
+                    "label": "API Key"
+                },
+                {
+                    "name": "channelId",
+                    "type": "string",
+                    "label": "Channel id"
+                }
+            ]
+        }
+    }
+}
