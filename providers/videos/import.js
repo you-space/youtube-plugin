@@ -69,6 +69,7 @@ async function importer({
     async function createVideos(videos){
         const videosPayload = []
         const thumbnailsPayload = []
+        const viewsPayload = []
     
         videos.map(video => {    
             videosPayload.push({
@@ -77,6 +78,12 @@ async function importer({
                 title: lodash.get(video, 'snippet.title', null),
                 src: `https://www.youtube.com/embed/${video.id}`,
                 description: lodash.get(video, 'snippet.description', null),
+            })
+
+            viewsPayload.push({
+                videoId: lodash.get(video, 'id', null),
+                source: 'youtube',
+                count: lodash.get(video, 'statistics.viewCount', 0),
             })
     
             Object.entries(lodash.get(video, 'snippet.thumbnails', {})).map(([key, value]) => {
@@ -93,6 +100,8 @@ async function importer({
         await videosRepository.createMany(videosPayload)
     
         await videosRepository.createThumbnails(thumbnailsPayload)
+
+        await videosRepository.createViews(viewsPayload)
     }
 
 
